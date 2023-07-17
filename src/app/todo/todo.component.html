@@ -1,0 +1,73 @@
+<mat-card class="example-card" layout="row" layout-align="center center">
+
+  <!---Todo from start from here-->
+  <mat-card-header>
+    <mat-card-title>Todo </mat-card-title>
+     </mat-card-header>
+  <mat-card-content>
+    <form > <!---[FormGroup] ="todoForm"-->
+      <mat-form-field appearance="outline">
+        <mat-label>Outline form field</mat-label>
+        <input matInput placeholder="Placeholder" formControlName="item">
+        <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+        <mat-hint>Hint</mat-hint>
+      </mat-form-field><br>
+      <button *ngIf ="!isEditEnabled" (click) ="addTask()" mat-raised-button color="primary" >Add</button> 
+      <button  *ngIf ="isEditEnabled"(click) ="updateTask()" mat-raised-button color="primary" >update</button>
+
+    </form><br> 
+    <!---Todo from end from here-->
+
+    <!---Todo list start from here-->
+
+    <div class="example-container">
+      <h2>To do </h2> <!---<span *ngIf ="tasks.lenght>0">{{tasks.lenght}}</span>-->
+
+      <div cdkDropList #todoList="cdkDropList" [cdkDropListData] ="tasks" [cdkDropListConnectedTo]="[doneList]"
+        class="example-list" (cdkDropListDropped)="drop($event)">
+        <div class="example-box" *ngFor ="let item of tasks; let i = index" cdkDrag>{{item.description}}
+          <div class="box">
+            <button mat-fab color="primary" (click)="delete(i)" aria-label="Example icon button with a delete icon">
+              <mat-icon>delete</mat-icon>
+            </button> &nbsp;
+            <button mat-fab color="primary" (click)="onEdit(item,i)" aria-label="Example icon button with a delete icon">
+              <mat-icon>edit</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!---Todo list end  here-->
+
+
+    <!---done start from here-->
+
+    <div class="example-container">
+      <h2>Done</h2>
+
+      <div cdkDropList #doneList="cdkDropList" [cdkDropListData] ="done" [cdkDropListConnectedTo]="[todoList]"
+        class="example-list" (cdkDropListDropped)="drop($event)">
+        <div class="example-box" *ngFor ="let item of done; let i = index" cdkDrag>{{item.description}}
+           <!--deletdone button start here-->
+          <div class="box">
+                    <button mat-fab color="primary" (click)="deletedone(i)" aria-label="Example icon button with a delete icon">
+              <mat-icon>delete</mat-icon>
+            </button> 
+            <!--deletdone button end here-->
+
+            <!--check circle button -->
+            <button mat-fab color="primary"  aria-label="Example icon button with a delete icon">
+              <mat-icon>check_circle</mat-icon>
+            </button>
+             <!--check circle button -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <!---done end  here-->
+
+
+  </mat-card-content>
+
+</mat-card>
+
