@@ -5,9 +5,9 @@
     <mat-card-title>Todo </mat-card-title>
      </mat-card-header>
   <mat-card-content>
-    <form > <!---[FormGroup] ="todoForm"-->
+    <form [formGroup] ="todoform">  <!---[FormGroup] ="FormGroup"-->
       <mat-form-field appearance="outline">
-        <mat-label>Outline form field</mat-label>
+        <mat-label>Tasks</mat-label>
         <input matInput placeholder="Placeholder" formControlName="item">
         <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
         <mat-hint>Hint</mat-hint>
@@ -19,31 +19,74 @@
     <!---Todo from end from here-->
 
     <!---Todo list start from here-->
-
+    <div cdkDropListGroup>
     <div class="example-container">
-      <h2>To do </h2> <!---<span *ngIf ="tasks.lenght>0">{{tasks.lenght}}</span>-->
+      <h2 class="head-title">To do </h2> <!---<span *ngIf ="tasks.lenght>0">{{tasks.lenght}}</span>-->
 
-      <div cdkDropList #todoList="cdkDropList" [cdkDropListData] ="tasks" [cdkDropListConnectedTo]="[doneList]"
+      <div cdkDropList #todoList="cdkDropList" [cdkDropListData] ="tasks"  [cdkDropListConnectedTo]="[doneList]"
         class="example-list" (cdkDropListDropped)="drop($event)">
         <div class="example-box" *ngFor ="let item of tasks; let i = index" cdkDrag>{{item.description}}
           <div class="box">
             <button mat-fab color="primary" (click)="delete(i)" aria-label="Example icon button with a delete icon">
               <mat-icon>delete</mat-icon>
-            </button> &nbsp;
-            <button mat-fab color="primary" (click)="onEdit(item,i)" aria-label="Example icon button with a delete icon">
+            </button> 
+            <button mat-fab color="primary" (click)="onEdit(item,i)" aria-label="Example icon button with a edit icon">
               <mat-icon>edit</mat-icon>
             </button>
           </div>
         </div>
       </div>
     </div>
+  
     <!---Todo list end  here-->
 
+    <!---Inprogress strat from here--->
+    <div class="example-container">
+      <h2 class="head-title">inprogress </h2>
+    <div cdkDropList #inprogressList="cdkDropList" [cdkDropListData] ="inprogress" [cdkDropListConnectedTo]="[todoList]"
+    class="example-list" (cdkDropListDropped)="drop($event)">
+    <div class="example-box" *ngFor ="let item of inprogress; let i = index" cdkDrag>{{item.description}}
+      <div class="box">
+        <button mat-fab color="primary" (click)="deleteinprogress(i)" aria-label="Example icon button with a delete icon">
+          <mat-icon>delete</mat-icon>
+        </button> 
+        
+        <!-- <button mat-fab color="primary" (click)="onEdit(item,i)" aria-label="Example icon button with a delete icon">
+          <mat-icon>edit</mat-icon> 
+        </button>--->
+      </div>
+    </div>
+  </div>
+    </div>
+
+    <!---Inprogress end  here--->
+
+     <!---tested strat from here--->
+     <div class="example-container">
+      <h2 class="head-title">tested </h2>
+    <div cdkDropList #inprogressList="cdkDropList" [cdkDropListData] ="tested" [cdkDropListConnectedTo]="[todoList]"
+    class="example-list" (cdkDropListDropped)="drop($event)">
+    <div class="example-box" *ngFor ="let item of tested; let i = index" cdkDrag>{{item.description}}
+      <div class="box">
+        <button mat-fab color="primary" (click)="deletetested(i)" aria-label="Example icon button with a delete icon">
+          <mat-icon>delete</mat-icon>
+        </button> 
+        <!--check circle button -->
+        <button mat-fab color="primary"  aria-label="Example icon button with a delete icon">
+          <mat-icon>check_circle</mat-icon>
+        </button>
+         <!--check circle button -->
+      </div>
+    </div>
+  </div>
+    </div>
+
+    <!--- end  here--->
 
     <!---done start from here-->
-
+  
     <div class="example-container">
-      <h2>Done</h2>
+      <h2 class="head-title">Done</h2>
 
       <div cdkDropList #doneList="cdkDropList" [cdkDropListData] ="done" [cdkDropListConnectedTo]="[todoList]"
         class="example-list" (cdkDropListDropped)="drop($event)">
@@ -64,6 +107,8 @@
         </div>
       </div>
     </div>
+  
+  </div>
     <!---done end  here-->
 
 

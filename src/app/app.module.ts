@@ -16,18 +16,19 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatIconModule} from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
 import {DragDropModule} from '@angular/cdk/drag-drop';
-import { TodolistComponent } from './todolist/todolist.component';
+
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 @NgModule({
   declarations: [
     AppComponent,
     TodoComponent,
     NavbarComponent,
-    TodolistComponent
+ 
   ],
   imports: [
     BrowserModule,ReactiveFormsModule, FormsModule,
     AppRoutingModule,MatButtonModule,MatIconModule,MatInputModule,DragDropModule,MatToolbarModule,
-    BrowserAnimationsModule,MatCardModule,MatDialogModule,MatFormFieldModule
+    BrowserAnimationsModule,MatCardModule,MatDialogModule,MatFormFieldModule, MatProgressSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

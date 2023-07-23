@@ -1,10 +1,14 @@
 import { Input } from '@angular/core';
 import { NgFor } from '@angular/common';
 
+
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators, FormGroupDirective, } from '@angular/forms';
 import { CdkDragDrop, moveItemInArray, transferArrayItem, CdkDrag, CdkDropList, } from '@angular/cdk/drag-drop';
-import { ITask } from './model/task';
+import { ITask } from '../model/task';
+import { ThemePalette } from '@angular/material/core';
+import { ProgressSpinnerMode } from '@angular/material/progress-spinner';
+
 
 
 @Component({
@@ -13,37 +17,49 @@ import { ITask } from './model/task';
   styleUrls: ['./todo.component.css']
 })
 export class TodoComponent {
-  todoForm = new FormGroup({
+
+  color: ThemePalette = 'primary';
+  mode: ProgressSpinnerMode = 'determinate';
+  value = 50;
+  todoform = new FormGroup({
     item: new FormControl(''),
   });
 
-  tasks: any []=[];
+  tasks : any []=[];
+  inprogress: ITask[]=[];
+  tested:ITask []=[];
   done: ITask []=[];
   updateIndex!: any;
   isEditEnabled: boolean = false; 
 
-  /* todo = ['get to work', 'Pick up Groceries', 'fall asleep']; */
+   todo = ['get to work', 'Pick up Groceries', 'fall asleep']; 
  
-  /* done = ['Get up', 'Brush teeth', 'Take a shower', 'Check e-mail', 'Walk dog'];
- */
+   donee = ['Get up', 'Brush teeth', 'Take a shower', 'Check e-mail', 'Walk dog'];
+ 
   constructor(private fb: FormBuilder) { }
 
-    tdoForm = this.fb.group({
+    tdoform = this.fb.group({
     ietm: ['', Validators.required],
   })
 //add button
     addTask(){
       this.tasks.push({
-        description: this.todoForm.value.item,
-        done:false
+        description : this.todoform.value.item,
+        done:false,
+    
       });
+   
+
+    console.log(this.tasks)
+      localStorage.setItem('token', JSON.stringify(this.tasks));
+     this.todoform.reset();
      
     }
-//end
+//:
 
 //edit button
     onEdit(item: ITask, i : number){
-       this.todoForm.controls['item'].setValue(item.description);
+       this.todoform.controls['item'].setValue(item.description);
         this.updateIndex = i;
        this.isEditEnabled = true; 
 
@@ -53,11 +69,14 @@ export class TodoComponent {
     //update
 
     updateTask(){
-      this.tasks [this.updateIndex]. description = this.todoForm.value.item;
+      this.tasks [this.updateIndex]. description = this.todoform.value.item;
       this.tasks [this.updateIndex].done = false;
-      this.todoForm.reset();
-       this.updateIndex = undefined;
+      this.todoform.reset();
+      this.todoform.reset(); this.updateIndex = undefined;
       this.isEditEnabled = false; 
+
+      localStorage.setItem('token', JSON.stringify(this.tasks));
+
 
     } // end here
 
@@ -68,7 +87,7 @@ export class TodoComponent {
 
 
    //dreag and drop
-  drop(event: CdkDragDrop<ITask[]>) {
+  drop(event: CdkDragDrop<ITask[],any[]>) {
 
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
@@ -98,5 +117,12 @@ export class TodoComponent {
   }
   //end heree
 
+  deleteinprogress(i: number){
+this.inprogress.splice(i, 1);
+  }
 
+  deletetested(i: number){
+    this.tested.splice(i,1)
+
+  }
 }
