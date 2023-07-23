@@ -32,9 +32,9 @@ export class TodoComponent {
   updateIndex!: any;
   isEditEnabled: boolean = false; 
 
-   todo = ['get to work', 'Pick up Groceries', 'fall asleep']; 
+   /*todo = ['get to work', 'Pick up Groceries', 'fall asleep']; 
  
-   donee = ['Get up', 'Brush teeth', 'Take a shower', 'Check e-mail', 'Walk dog'];
+   donee = ['Get up', 'Brush teeth', 'Take a shower', 'Check e-mail', 'Walk dog'];*/
  
   constructor(private fb: FormBuilder) { }
 
