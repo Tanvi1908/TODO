@@ -36,9 +36,15 @@ export class TodoComponent {
   
 /*   todo!: any[]; */
 
+<<<<<<< HEAD
   /*  todo = ['get to work', 'Pick up Groceries', 'fall asleep']; 
  
    done = ['Get up', 'Brush teeth', 'Take a shower', 'Check e-mail', 'Walk dog']; */
+=======
+   /*todo = ['get to work', 'Pick up Groceries', 'fall asleep']; 
+ 
+   donee = ['Get up', 'Brush teeth', 'Take a shower', 'Check e-mail', 'Walk dog'];*/
+>>>>>>> 339265575dccfad1ce31af44e80fb599a629c8fb
  
   constructor(private fb: FormBuilder, private todo:TodoService, public dialog: MatDialog ) { }
 
