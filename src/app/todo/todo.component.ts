@@ -1,6 +1,6 @@
 import { Input } from '@angular/core';
 import { NgFor } from '@angular/common';
-
+import {Dialog} from '@angular/cdk/dialog';
 
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators, FormGroupDirective, } from '@angular/forms';
@@ -8,6 +8,9 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem, CdkDrag, CdkDropList, 
 import { ITask } from '../model/task';
 import { ThemePalette } from '@angular/material/core';
 import { ProgressSpinnerMode } from '@angular/material/progress-spinner';
+import { TodoService } from '../todo.service';
+import { DialogComponent } from '../dialog/dialog.component';
+import { MatDialog,  MAT_DIALOG_DATA} from '@angular/material/dialog';
 
 
 
@@ -18,27 +21,28 @@ import { ProgressSpinnerMode } from '@angular/material/progress-spinner';
 })
 export class TodoComponent {
 
-  color: ThemePalette = 'primary';
-  mode: ProgressSpinnerMode = 'determinate';
-  value = 50;
-  todoform = new FormGroup({
+  
+ 
+  todoform:FormGroup = new FormGroup({
     item: new FormControl(''),
   });
-
-  tasks : any []=[];
+ 
+  tasks : ITask []=[];
   inprogress: ITask[]=[];
   tested:ITask []=[];
   done: ITask []=[];
   updateIndex!: any;
   isEditEnabled: boolean = false; 
+  
+/*   todo!: any[]; */
 
-   todo = ['get to work', 'Pick up Groceries', 'fall asleep']; 
+  /*  todo = ['get to work', 'Pick up Groceries', 'fall asleep']; 
  
-   donee = ['Get up', 'Brush teeth', 'Take a shower', 'Check e-mail', 'Walk dog'];
+   done = ['Get up', 'Brush teeth', 'Take a shower', 'Check e-mail', 'Walk dog']; */
  
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private todo:TodoService, public dialog: MatDialog ) { }
 
-    tdoform = this.fb.group({
+    tdoform  = this.fb.group({
     ietm: ['', Validators.required],
   })
 //add button
@@ -74,6 +78,7 @@ export class TodoComponent {
       this.todoform.reset();
       this.todoform.reset(); this.updateIndex = undefined;
       this.isEditEnabled = false; 
+      
 
       localStorage.setItem('token', JSON.stringify(this.tasks));
 
@@ -125,4 +130,15 @@ this.inprogress.splice(i, 1);
     this.tested.splice(i,1)
 
   }
+
+  openDialog(){
+    this.dialog.open(DialogComponent,{
+      width:'60',
+      height:'200px'
+      
+    })
+      
+    
+  }
+  
 }
