@@ -28,7 +28,8 @@ export class DialogComponent {
   updateIndex!: any;
   isEditEnabled: boolean = false; 
 
-  constructor(private todo: TodoService, private fb: FormBuilder,  public dialog: MatDialog, private dialogRef: MatDialogRef<DialogComponent> ) { }
+  constructor(private todo: TodoService, private fb: FormBuilder,  public dialog: MatDialog,
+     private dialogRef: MatDialogRef<DialogComponent> ) { }
 
  
   tdoform  = this.fb.group({
@@ -40,12 +41,12 @@ export class DialogComponent {
         description : this.todoform.value.item,
         done:false,   
       });
-      if( this.todoform.valid){
+    /*   if( this.todoform.valid){
 
         this.todo.postList(this.tdoform.value).subscribe({next:(res)=>{
           alert("list added succesfullu")
         }})
-      }
+      } */
       
    
 
