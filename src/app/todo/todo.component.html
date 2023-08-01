@@ -1,10 +1,5 @@
 
-
-
 <mat-card class="example-card" layout="row" layout-align="center center">
-
-
-
 
   <!---Todo from start from here-->
   <mat-card-header>
@@ -153,5 +148,11 @@
 
 
   </mat-card-content>
+  <mat-paginator [length]="100"
+              [pageSize]="10"
+              [pageSizeOptions]="[5, 10, 25, 100]"
+              aria-label="Select page">
+</mat-paginator>
+
 
 </mat-card>

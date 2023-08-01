@@ -9,6 +9,8 @@ import { Input } from '@angular/core';
 import { TodoService } from '../todo.service';
 
 
+
+
 @Component({
   selector: 'app-dialog',
   templateUrl: './dialog.component.html',
@@ -41,15 +43,24 @@ export class DialogComponent {
         description : this.todoform.value.item,
         done:false,   
       });
-    /*   if( this.todoform.valid){
 
+
+      /*  post start API*/
+      if( this.todoform.valid){
         this.todo.postList(this.tdoform.value).subscribe({next:(res)=>{
-          alert("list added succesfullu")
-        }})
-      } */
-      
-   
+          alert("list added succesfullu")},
+          error:()=>{
+            alert("Error while adding the list");
+            this.dialogRef.close("save");
+            this.tdoform.reset();
+          }
+        })
+      } 
 
+      /* post API end here*/
+     
+
+  
     console.log(this.tasks)
       localStorage.setItem('token', JSON.stringify(this.tasks));
      this.todoform.reset();
@@ -88,3 +99,7 @@ updateTask(){
     
   
 }
+function addList() {
+  throw new Error('Function not implemented.');
+}
+

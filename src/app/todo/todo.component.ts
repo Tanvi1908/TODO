@@ -4,13 +4,15 @@ import {Dialog} from '@angular/cdk/dialog';
 
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators, FormGroupDirective, } from '@angular/forms';
-import { CdkDragDrop, moveItemInArray, transferArrayItem, CdkDrag, CdkDropList, } from '@angular/cdk/drag-drop';
+import { CdkDragDrop, moveItemInArray, transferArrayItem, CdkDrag, CdkDropList, CdkDropListGroup, } from '@angular/cdk/drag-drop';
 import { ITask } from '../model/task';
 import { ThemePalette } from '@angular/material/core';
 import { ProgressSpinnerMode } from '@angular/material/progress-spinner';
 import { TodoService } from '../todo.service';
 import { DialogComponent } from '../dialog/dialog.component';
 import { MatDialog,  MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { OnInit } from '@angular/core';
+
 
 
 
@@ -19,7 +21,7 @@ import { MatDialog,  MAT_DIALOG_DATA} from '@angular/material/dialog';
   templateUrl: './todo.component.html',
   styleUrls: ['./todo.component.css']
 })
-export class TodoComponent {
+export class TodoComponent implements OnInit{
 
   
  
@@ -36,17 +38,14 @@ export class TodoComponent {
   
 /*   todo!: any[]; */
 
-<<<<<<< HEAD
   /*  todo = ['get to work', 'Pick up Groceries', 'fall asleep']; 
  
    done = ['Get up', 'Brush teeth', 'Take a shower', 'Check e-mail', 'Walk dog']; */
-=======
-   /*todo = ['get to work', 'Pick up Groceries', 'fall asleep']; 
- 
-   donee = ['Get up', 'Brush teeth', 'Take a shower', 'Check e-mail', 'Walk dog'];*/
->>>>>>> 339265575dccfad1ce31af44e80fb599a629c8fb
  
   constructor(private fb: FormBuilder, private todo:TodoService, public dialog: MatDialog ) { }
+  ngOnInit(): void {
+    this.getList();
+  }
 
     tdoform  = this.fb.group({
     ietm: ['', Validators.required],
@@ -58,8 +57,6 @@ export class TodoComponent {
         done:false,
     
       });
-   
-
     console.log(this.tasks)
       localStorage.setItem('token', JSON.stringify(this.tasks));
      this.todoform.reset();
@@ -142,9 +139,19 @@ this.inprogress.splice(i, 1);
       width:'60',
       height:'200px'
       
+    });
+  }
+
+  getList(){
+    this.todo.getList().subscribe({
+      next:(res)=>{
+        console.log(res);
+      },
+
+      error:(err)=>{
+        alert("error while fetchhing the data")
+      }
     })
-      
-    
   }
   
 }

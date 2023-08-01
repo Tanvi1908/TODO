@@ -9,10 +9,15 @@ export class TodoService {
 
   constructor(private http: HttpClient) {}
 
-postList(data:any){
+postList(ITask:any){
 
-return this.http.post<any>("http://localhost:3000/posts",data)
+return this.http.post<any>("http://localhost:3000/postsList/",ITask);
 
+}
+
+getList(){
+
+  return this.http.get<any>("http://localhost:3000/posts")
 }
 
  /*  let url = "https://jsonplaceholder.typicode.com/todos";
