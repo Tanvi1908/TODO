@@ -1,18 +1,23 @@
-  <!---Todo from start from here-->
-  <mat-card-header>
-    <mat-card-title>Todo </mat-card-title>
-  </mat-card-header>
-  <mat-card-content>
-    <form [formGroup]="todoform">
-      <!---[FormGroup] ="FormGroup"-->
-      <mat-form-field appearance="outline">
-        <mat-label>Tasks</mat-label>
-        <input matInput placeholder="Placeholder" formControlName="item">
-        <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
-        <mat-hint>Hint</mat-hint>
-      </mat-form-field><br>
-      <button *ngIf="!isEditEnabled" (click)="addTask()" mat-raised-button color="primary">Add</button>
-     
-      <button *ngIf="isEditEnabled" (click)="updateTask()" mat-raised-button color="primary">update</button>
-    </form><br>
-    <!---Todo from end from here-->
+<!-- <div mat-dialog-content>
+  <mat-form-field>
+    <mat-label>Task Name</mat-label>
+    <input matInput [(ngModel)]="data.name">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">No Thanks</button>
+  <button mat-button [mat-dialog-close]="data.name" cdkFocusInitial>Ok</button>
+</div> -->
+
+<h1 mat-dialog-title> {{data.item}}</h1>
+<div mat-dialog-content>
+
+  <mat-form-field>
+    <mat-label>Favorite Animal</mat-label>
+    <input matInput [(ngModel)]="data.item">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">No Thanks</button>
+  <button mat-button [mat-dialog-close]="data.item" cdkFocusInitial>Ok</button>
+</div>

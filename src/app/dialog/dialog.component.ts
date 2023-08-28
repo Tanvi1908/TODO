@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 
 import { FormBuilder, FormControl, FormGroup, Validators, FormGroupDirective, } from '@angular/forms';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import {NgFor} from '@angular/common';
-import {CdkDragDrop,CdkDrag,CdkDropList,CdkDropListGroup,moveItemInArray,transferArrayItem,} from '@angular/cdk/drag-drop';
-import { ITask } from '../model/task';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { NgFor } from '@angular/common';
+
 import { Input } from '@angular/core';
 import { TodoService } from '../todo.service';
+import { Inject } from '@angular/core';
 
 
 
@@ -18,88 +18,18 @@ import { TodoService } from '../todo.service';
 })
 export class DialogComponent {
 
-  
-  todoform:FormGroup = new FormGroup({
-    item: new FormControl(''),
-  });
- 
-  tasks : ITask []=[];
-  inprogress: ITask[]=[];
-  tested:ITask []=[];
-  done: ITask []=[];
-  updateIndex!: any;
-  isEditEnabled: boolean = false; 
+  constructor(public dialogRef: MatDialogRef<DialogComponent>, @Inject(MAT_DIALOG_DATA)
+  public data: any,
+  ) { }
 
-  constructor(private todo: TodoService, private fb: FormBuilder,  public dialog: MatDialog,
-     private dialogRef: MatDialogRef<DialogComponent> ) { }
-
- 
-  tdoform  = this.fb.group({
-    ietm: ['', Validators.required],
-  })
-//add button
-    addTask(){
-      this.tasks.push({
-        description : this.todoform.value.item,
-        done:false,   
-      });
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
 
 
-      /*  post start API*/
-      if( this.todoform.valid){
-        this.todo.postList(this.tdoform.value).subscribe({next:(res)=>{
-          alert("list added succesfullu")},
-          error:()=>{
-            alert("Error while adding the list");
-            this.dialogRef.close("save");
-            this.tdoform.reset();
-          }
-        })
-      } 
-
-      /* post API end here*/
-     
-
-  
-    console.log(this.tasks)
-      localStorage.setItem('token', JSON.stringify(this.tasks));
-     this.todoform.reset();
-     
-    }
-//edit button
-onEdit(item: ITask, i : number){
-  this.todoform.controls['item'].setValue(item.description);
-   this.updateIndex = i;
-  this.isEditEnabled = true; 
 
 }
-//end heree
-
-//update
-
-updateTask(){
- this.tasks [this.updateIndex]. description = this.todoform.value.item;
- this.tasks [this.updateIndex].done = false;
- this.todoform.reset();
- this.todoform.reset(); this.updateIndex = undefined;
- this.isEditEnabled = false; 
- 
-
- localStorage.setItem('token', JSON.stringify(this.tasks));
 
 
-} // end here
 
-/* openDialog(){
-  this.dialog.open(DialogComponent,{
-    width:'60',
-    height:'200px'
-    
-  }) */
-    
-  
-}
-function addList() {
-  throw new Error('Function not implemented.');
-}
 
