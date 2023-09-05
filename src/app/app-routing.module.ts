@@ -8,7 +8,8 @@ import { TodoComponent } from './todo/todo.component';
 const routes: Routes = [
 
   { path: '', component: TableComponent },
-  { path: 'home', component: HomeComponent }
+  { path: 'home', component: HomeComponent },
+  /* { path: 'todo', component: TodoComponent }*/
 
 
 

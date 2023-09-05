@@ -63,14 +63,16 @@ export class TableComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-      this.done.push({
+      this.todo.push({
         content: result,
         isedit: false,
 
       });
       this.paginator = this.paginator
     });
-    console.log(this.done)
+    console.log(this.todo)
+    console.log(this.inprogress)
+    localStorage.setItem('token', JSON.stringify(this.todo))
   }
 
 
@@ -86,18 +88,21 @@ export class TableComponent {
     // ... other items
   ];*/
 
-  todo1: { text: string; isedit: boolean; }[] =
+  /*todo1: { text: string; isedit: boolean; }[] =
     [{ text: 'Get to work', isedit: false },
     { text: 'back to work', isedit: false }
-    ];
-  update(item: { text: string, isedit: boolean }, newText: string) {
-    item.text = newText;
+    ];*/
+  update(item: { content: string, isedit: boolean }, newText: string) {
+    item.content = newText;
     item.isedit = false
   }
 
-  done1 = ['Get up', 'Brush teeth', 'Take a shower', 'Check e-mail', 'Walk dog',];
+  /* done1 = ['Get up', 'Brush teeth', 'Take a shower', 'Check e-mail', 'Walk dog',];*/
 
-  done: { content: string; isedit: boolean; }[] = [
+  done: any[] = [];
+  tested: any[] = [];
+
+  todo: { content: string; isedit: boolean; }[] = [
     { content: 'abc 1', isedit: false, },
     { content: 'abc 2', isedit: false, },
 
@@ -121,7 +126,7 @@ export class TableComponent {
   updateItem(item: { content: string; isedit: boolean }, newContent: string) {
     item.content = newContent;
     item.isedit = false;
-    console.log(this.done)
+    console.log(this.todo)
   }
 
   //edit button
@@ -131,8 +136,20 @@ export class TableComponent {
    } */
   //end heree
 
-  deleteItem(index: number) {
-    this.done.splice(index, 1);
+  deletetodo(i: number) {
+    this.todo.splice(i, 1);
+  }
+
+  deleteinprogress(i: number) {
+    this.inprogress.splice(i, 1);
+  }
+
+  deletetested(i: number) {
+    this.tested.splice(i, 1);
+  }
+
+  deletedone(i: number) {
+    this.done.splice(i, 1)
   }
   /*  edit(item: any) {
      item.editable = true;
